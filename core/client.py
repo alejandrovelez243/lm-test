@@ -26,7 +26,7 @@ def register():
             db.session.add(user)
             db.session.commit()
             job = q.enqueue_call(
-                func=search_zip_code, args=(user.id,), result_ttl=5000
+                func=search_zip_code, args=(user.id,)
             )
             print(job.get_id())
             # Success, go to the client page.
