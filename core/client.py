@@ -2,10 +2,16 @@ from flask import Blueprint, flash, g, redirect, render_template, request, sessi
 from core.models import User, City
 from core.forms import UserForm
 from core import q
-from core.city import search_zip_code
 from core.db import get_db
 
 bp = Blueprint("client", __name__, url_prefix="/clients")
+
+
+def search_zip_code(user_id):
+    zip_code = User.query.filter_by(id=user_id).first().zip_code
+    r = requests.get(f"https://service.zipapi.us/zipcode/{zip_code}?X-API-KEY=8b834b3df72a04223d32ea5f80351d37&fields=geolocation,population")
+    print(r.json())
+    return r.json()
 
 @bp.route("/", methods=("GET", "POST"))
 def register():

@@ -1,5 +1,6 @@
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for
-from core.models import User
+
+from core.models import City
 
 from core.db import get_db
 from rq.job import Job
@@ -8,13 +9,6 @@ from rq import Queue
 import requests
 
 bp = Blueprint("city", __name__, url_prefix="/cities")
-
-
-def search_zip_code(user_id):
-    zip_code = User.query.filter_by(id=user_id).first().zip_code
-    r = requests.get(f"https://service.zipapi.us/zipcode/{zip_code}?X-API-KEY=8b834b3df72a04223d32ea5f80351d37&fields=geolocation,population")
-    print(r.json())
-    return r.json()
 
 
 @bp.route("/task/<job_key>", methods=['GET'])
