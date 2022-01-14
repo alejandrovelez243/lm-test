@@ -13,7 +13,9 @@ migrate = Migrate()
 def create_app(test_config=None):
     """Create and configure an instance of the Flask application."""
     app = Flask(__name__, instance_relative_config=True)
-    app.config.from_object("core.config.ProductionConfig")
+    app.config.from_object("core.config.DevelopmentConfig")
+    if os.environ.get('PRODUCTION'):
+        app.config.from_object("core.config.ProductionConfig")
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     # ensure the instance folder exists
