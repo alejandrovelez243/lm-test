@@ -1,6 +1,8 @@
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for
 from core.models import User, City
 from core.forms import UserForm
+from core import q
+from core.city import search_zip_code
 
 from core.db import get_db
 
@@ -24,6 +26,9 @@ def register():
             )
             db.session.add(user)
             db.session.commit()
+            job = q.enqueue_call(
+                func=search_zip_code, args=(url, user.id), result_ttl=5000
+            )
 
             # Success, go to the client page.
             return redirect(url_for("client.client_json", user_id=user.id))

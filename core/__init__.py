@@ -4,11 +4,13 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap
-
+from rq import Queue
+from .worker import conn
 
 
 db = SQLAlchemy()
 migrate = Migrate()
+q = Queue(connection=conn)
 
 def create_app(test_config=None):
     """Create and configure an instance of the Flask application."""
@@ -28,10 +30,10 @@ def create_app(test_config=None):
     migrate.init_app(app, db)
 
     # apply the blueprints to the app
-    from core import client
+    from core import client, city
     bootstrap = Bootstrap(app)
 
-    app.register_blueprint(client.bp)
+    app.register_blueprint(client.bp, city.bp)
 
     @app.route('/')
     def index():
