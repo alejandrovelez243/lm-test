@@ -1,2 +1,2 @@
 web: gunicorn wsgi:app
-worker: rq core:worker
+worker: python core/worker.py
