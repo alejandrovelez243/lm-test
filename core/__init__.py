@@ -33,7 +33,7 @@ def create_app(test_config=None):
 
     @app.route('/')
     def index():
-        return ""
+        return "This is the app for the test"
 
     # make url_for('index') == url_for('blog.index')
     # in another app, you might define a separate main index here with
