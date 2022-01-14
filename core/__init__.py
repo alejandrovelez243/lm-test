@@ -33,7 +33,8 @@ def create_app(test_config=None):
     from core import client, city
     bootstrap = Bootstrap(app)
 
-    app.register_blueprint(client.bp, city.bp)
+    app.register_blueprint(client.bp)
+    app.register_blueprint(city.bp)
 
     @app.route('/')
     def index():

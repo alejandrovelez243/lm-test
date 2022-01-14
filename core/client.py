@@ -3,7 +3,6 @@ from core.models import User, City
 from core.forms import UserForm
 from core import q
 from core.city import search_zip_code
-
 from core.db import get_db
 
 bp = Blueprint("client", __name__, url_prefix="/clients")
@@ -27,9 +26,9 @@ def register():
             db.session.add(user)
             db.session.commit()
             job = q.enqueue_call(
-                func=search_zip_code, args=(url, user.id), result_ttl=5000
+                func=search_zip_code, args=(user.id,), result_ttl=5000
             )
-
+            print(job.get_id())
             # Success, go to the client page.
             return redirect(url_for("client.client_json", user_id=user.id))
         flash('Email already registered')
