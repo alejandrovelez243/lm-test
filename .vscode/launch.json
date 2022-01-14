@@ -13,7 +13,7 @@
                 "FLASK_APP": "app.py",
                 "FLASK_ENV": "development",
                 "FLASK_DEBUG": "1",
-                "APP_SETTINGS": "core.config.DevelopmentConfig"
+                "APP_SETTINGS": "zip_code_app.config.DevelopmentConfig"
             },
             "args": [
                 "run",

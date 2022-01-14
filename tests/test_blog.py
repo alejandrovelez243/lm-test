@@ -1,6 +1,6 @@
 import pytest
 
-from core.db import get_db
+from zip_code_app.db import get_db
 
 
 def test_index(client, auth):

@@ -3,9 +3,9 @@ import tempfile
 
 import pytest
 
-from core import create_app
-from core.db import get_db
-from core.db import init_db
+from zip_code_app import create_app
+from zip_code_app.db import get_db
+from zip_code_app.db import init_db
 
 # read in SQL for populating test data
 with open(os.path.join(os.path.dirname(__file__), "data.sql"), "rb") as f:

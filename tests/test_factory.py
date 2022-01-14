@@ -1,4 +1,4 @@
-from core import create_app
+from zip_code_app import create_app
 
 
 def test_config():
