@@ -1,2 +1,2 @@
 web: gunicorn wsgi:app
-worker: python core/worker.py
+worker: python zip_code_app/worker.py

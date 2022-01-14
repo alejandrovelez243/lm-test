@@ -15,9 +15,9 @@ q = Queue(connection=conn)
 def create_app(test_config=None):
     """Create and configure an instance of the Flask application."""
     app = Flask(__name__, instance_relative_config=True)
-    app.config.from_object("core.config.DevelopmentConfig")
+    app.config.from_object("zip_code_app.config.DevelopmentConfig")
     if os.environ.get('PRODUCTION'):
-        app.config.from_object("core.config.ProductionConfig")
+        app.config.from_object("zip_code_app.config.ProductionConfig")
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     # ensure the instance folder exists
@@ -30,7 +30,7 @@ def create_app(test_config=None):
     migrate.init_app(app, db)
 
     # apply the blueprints to the app
-    from core import client, city
+    from zip_code_app import client, city
     bootstrap = Bootstrap(app)
 
     app.register_blueprint(client.bp)

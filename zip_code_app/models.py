@@ -1,4 +1,4 @@
-from core import db
+from zip_code_app import db
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)

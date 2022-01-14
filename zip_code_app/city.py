@@ -1,8 +1,8 @@
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for
 
-from core.models import City
+from zip_code_app.models import City
 
-from core.db import get_db
+from zip_code_app.db import get_db
 from rq.job import Job
 from .worker import conn
 from rq import Queue
