@@ -13,7 +13,7 @@ migrate = Migrate()
 def create_app(test_config=None):
     """Create and configure an instance of the Flask application."""
     app = Flask(__name__, instance_relative_config=True)
-    app.config.from_object("core.config.DevelopmentConfig")
+    app.config.from_object("core.config.ProductionConfig")
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     # ensure the instance folder exists
@@ -26,11 +26,14 @@ def create_app(test_config=None):
     migrate.init_app(app, db)
 
     # apply the blueprints to the app
-    from core import client, blog
+    from core import client
     bootstrap = Bootstrap(app)
 
     app.register_blueprint(client.bp)
-    app.register_blueprint(blog.bp)
+
+    @app.route('/')
+    def index():
+        return ""
 
     # make url_for('index') == url_for('blog.index')
     # in another app, you might define a separate main index here with
