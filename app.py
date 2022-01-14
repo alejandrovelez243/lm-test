@@ -1,3 +1,3 @@
-from core import create_app, db
+from zip_code_app import create_app, db
 
 app = create_app()
