@@ -1,5 +1,5 @@
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for
-from core.models import City, User
+from core.models import User
 
 from core.db import get_db
 from rq.job import Job
