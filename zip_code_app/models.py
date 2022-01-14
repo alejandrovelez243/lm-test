@@ -7,6 +7,7 @@ class User(db.Model):
     middle_name = db.Column(db.String(40), unique=False, nullable=True)
     last_name = db.Column(db.String(40), unique=False, nullable=False)
     zip_code = db.Column(db.String(10), unique=False, nullable=False)
+    
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
@@ -30,9 +31,10 @@ class City(db.Model):
     city = db.Column(db.String(40), unique=False, nullable=False)
     country = db.Column(db.String(40), unique=False, nullable=True)
     state = db.Column(db.String(40), unique=False, nullable=False)
-    latitud = db.Column(db.Float(20), unique=False, nullable=False)
-    longitud = db.Column(db.Float(20), unique=False, nullable=False)
+    latitude = db.Column(db.Float(20), unique=False, nullable=False)
+    longitude = db.Column(db.Float(20), unique=False, nullable=False)
     zip_code = db.Column(db.String(10), unique=False, nullable=False)
+    state_fullname = db.Column(db.String(40), unique=False, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'),
         nullable=False)
     user = db.relationship('User',
@@ -46,8 +48,12 @@ class City(db.Model):
 
     def serialize(self):
         return {
-            'id': self.id, 
+            'id': self.id,
             'city': self.city,
             'state': self.state,
-            'zip_code': self.zip_code
+            'zip_code': self.zip_code,
+            'state_fullname': self.state_fullname,
+            'longitude': self.longitude,
+            'latitude': self.latitude
+
         }
