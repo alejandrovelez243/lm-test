@@ -4,8 +4,12 @@ from zip_code_app.forms import UserForm
 from zip_code_app.db import get_db
 import requests
 from requests.auth import HTTPBasicAuth
+from zip_code_app import q
 
 bp = Blueprint("client", __name__, url_prefix="/clients")
+
+def process():
+    return "Somehting"
 
 
 def search_zip_code(zip_code):
@@ -27,6 +31,7 @@ def register():
     """Register a new client.
     """
     user_form = UserForm()
+    job = q.enqueue_call(func=process)
     if user_form.validate_on_submit():
         user_exist = User.query.filter_by(email=user_form.email.data).first()
         if not user_exist:

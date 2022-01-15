@@ -5,9 +5,15 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap
 
+from rq import Queue
+import redis
+
 
 db = SQLAlchemy()
 migrate = Migrate()
+redis_url = os.getenv('REDISTOGO_URL', 'redis://localhost:6379')
+redis = redis.from_url(redis_url)
+q = Queue(connection=redis)
 
 def create_app(test_config=None):
     """Create and configure an instance of the Flask application."""
