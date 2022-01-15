@@ -54,6 +54,17 @@ class City(db.Model):
             'zip_code': self.zip_code,
             'state_fullname': self.state_fullname,
             'longitude': self.longitude,
-            'latitude': self.latitude
+            'latitude': self.latitude,
+            'county': ''
+        }
+
+    def serialize_no_id(self):
+        return {
+            'city': self.city,
+            'state': self.state,
+            'state_fullname': self.state_fullname,
+            'longitude': self.longitude,
+            'latitude': self.latitude,
+            'county': ''
 
         }
