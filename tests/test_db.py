@@ -1,29 +1,17 @@
-import sqlite3
-
+from flask_testing import TestCase
+from flask import current_app
 import pytest
-
+from app import app
 from zip_code_app.db import get_db
 
 
-def test_get_close_db(app):
-    with app.app_context():
+class DBTest(TestCase):
+    def create_app(self):
+        app.config['TESTING'] = True
+        app.config['WTF_CSRF_ENABLED'] = False
+
+        return app
+
+    def test_db(self):
         db = get_db()
-        assert db is get_db()
-
-    with pytest.raises(sqlite3.ProgrammingError) as e:
-        db.execute("SELECT 1")
-
-    assert "closed" in str(e.value)
-
-
-def test_init_db_command(runner, monkeypatch):
-    class Recorder:
-        called = False
-
-    def fake_init_db():
-        Recorder.called = True
-
-    monkeypatch.setattr("zip_code_app.db.init_db", fake_init_db)
-    result = runner.invoke(args=["init-db"])
-    assert "Initialized" in result.output
-    assert Recorder.called
+        self.assertEqual(db, get_db())
