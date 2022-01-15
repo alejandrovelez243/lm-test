@@ -4,13 +4,10 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap
-from rq import Queue
-from .worker import conn
 
 
 db = SQLAlchemy()
 migrate = Migrate()
-q = Queue(connection=conn)
 
 def create_app(test_config=None):
     """Create and configure an instance of the Flask application."""

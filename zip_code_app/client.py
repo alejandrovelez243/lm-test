@@ -1,7 +1,6 @@
 from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for
 from zip_code_app.models import User, City
 from zip_code_app.forms import UserForm
-from zip_code_app import q
 from zip_code_app.db import get_db
 import requests
 from requests.auth import HTTPBasicAuth
